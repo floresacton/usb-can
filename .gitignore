@@ -1,0 +1,17 @@
+### KiCad ###
+backups/
+*-backups/
+*.lck
+*.log
+fp-info-cache
+*auto_saved_files*
+
+### Python ###
+__pycache__/
+
+### STM32 ###
+.metadata/
+Debug/
+Drivers/
+Middlewares/
+USB_DEVICE/
