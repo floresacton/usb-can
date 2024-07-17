@@ -40,10 +40,6 @@ void App_Init(void) {
 		Error_Handler();
 	}
 
-//	for (int i = 0; i < 12; i++) {
-//		TxData[i] = indx++;
-//	}
-//	tx_header.Identifier = 0x11;
 	tx_header.IdType = FDCAN_STANDARD_ID;
 	tx_header.TxFrameType = FDCAN_DATA_FRAME;
 	tx_header.ErrorStateIndicator = FDCAN_ESI_ACTIVE;
@@ -89,6 +85,6 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 	}
 }
 
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
-	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-}
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+//	HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+//}

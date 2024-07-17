@@ -198,7 +198,7 @@ static void MX_FDCAN2_Init(void)
   hfdcan2.Init.DataSyncJumpWidth = 5;
   hfdcan2.Init.DataTimeSeg1 = 29;
   hfdcan2.Init.DataTimeSeg2 = 6;
-  hfdcan2.Init.StdFiltersNbr = 1;
+  hfdcan2.Init.StdFiltersNbr = 0;
   hfdcan2.Init.ExtFiltersNbr = 0;
   hfdcan2.Init.TxFifoQueueMode = FDCAN_TX_FIFO_OPERATION;
   if (HAL_FDCAN_Init(&hfdcan2) != HAL_OK)
@@ -349,6 +349,8 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	  HAL_Delay(1000);
   }
   /* USER CODE END Error_Handler_Debug */
 }
