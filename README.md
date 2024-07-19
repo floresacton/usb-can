@@ -1,2 +1,2 @@
 # usb-can
-USB to CAN bidirectional converter
+USB to CAN FD bidirectional converter
