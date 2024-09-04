@@ -78,51 +78,76 @@ def receive_frame():
     return id, data, dlc_idx
 
 
-# set mode PID
+# # set mode PID
+# data = bytearray([0])
+# data.extend(struct.pack("b", 1))
+# send_frame(10, data, DLC.Size2.value)
+
+# # set max P
+# data = bytearray([0])
+# data.extend(struct.pack("f", 100))
+# send_frame(3, data, DLC.Size5.value)
+
+# # set P
+# data = bytearray([0])
+# data.extend(struct.pack("f", 0.1))
+# send_frame(0, data, DLC.Size5.value)
+
+# # set max out
+# data = bytearray([0])
+# data.extend(struct.pack("f", 100))
+# send_frame(6, data, DLC.Size5.value)
+
+# # set current
+# send_frame(8, bytearray([0, 20]), DLC.Size2.value)
+
+# # reset
+# send_frame(12, bytearray([0]), DLC.Size1.value)
+
+# # # set duty
+# # data = bytearray([0])
+# data.extend(struct.pack("H", 100))
+# # send_frame(7, data, DLC.Size2.value)
+
+# # set position
+# data = bytearray([0])
+# data.extend(struct.pack("i", 10000))
+# send_frame(9, data, DLC.Size5.value)
+
+# # set address
+# data = struct.pack("H", 100)
+# send_frame(11, data, DLC.Size3.value)
+
+# time.sleep(5)
+
+# data = bytearray([0])
+# data.extend(struct.pack("i", 0))
+# send_frame(109, data, DLC.Size5.value)
+
+########### current test ################
+
+# set mode Manual
 data = bytearray([0])
-data.extend(struct.pack("b", 1))
+data.extend(struct.pack("b", 0))
 send_frame(10, data, DLC.Size2.value)
 
-# set max P
+# set voltage
 data = bytearray([0])
-data.extend(struct.pack("f", 100))
-send_frame(3, data, DLC.Size5.value)
-
-# set P
-data = bytearray([0])
-data.extend(struct.pack("f", 0.1))
-send_frame(0, data, DLC.Size5.value)
-
-# set max out
-data = bytearray([0])
-data.extend(struct.pack("f", 100))
-send_frame(6, data, DLC.Size5.value)
+data.extend(struct.pack("b", 65))
+send_frame(7, data, DLC.Size2.value)
 
 # set current
 send_frame(8, bytearray([0, 20]), DLC.Size2.value)
 
-# reset
-send_frame(12, bytearray([0]), DLC.Size1.value)
+#  print current
+while True:
+    send_frame(14, bytearray([0]), DLC.Size1.value)
+    frame = receive_frame()
+    id, data, dlc_index = frame
+    print(struct.unpack("<h", data)[0])
+    time.sleep(0.1)
 
-# # set duty
-# data = bytearray([0])
-data.extend(struct.pack("H", 100))
-# send_frame(7, data, DLC.Size2.value)
-
-# set position
-data = bytearray([0])
-data.extend(struct.pack("i", 10000))
-send_frame(9, data, DLC.Size5.value)
-
-# set address
-data = struct.pack("H", 100)
-send_frame(11, data, DLC.Size3.value)
-
-time.sleep(10)
-
-data = bytearray([0])
-data.extend(struct.pack("i", 0))
-send_frame(109, data, DLC.Size5.value)
+#######################
 
 # start = time.time()
 

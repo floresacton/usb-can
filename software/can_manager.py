@@ -1,5 +1,5 @@
-from enum import Enum
 import struct
+from enum import Enum
 
 
 class CAN_DLC(Enum):
@@ -63,3 +63,4 @@ class CanManager:
             
 # TODO finish
     def parse_message(self, types, data):
+        ...
