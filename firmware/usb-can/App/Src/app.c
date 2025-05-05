@@ -54,11 +54,14 @@ void App_Loop(void) {
 }
 
 void App_Send(uint8_t* data) {
+    // 0xxxx bbb bbbbbbbb
+    //
 	const uint16_t header = *((uint16_t*)data);
 	const uint8_t len = header >> 11;
 	tx_header.Identifier = header & 0x07FF;
 	tx_header.DataLength = len;
-	memcpy(tx_data, data+2, len);
+	memcpy(tx_data, data+2, dlc_size[len]);
+	
 	if (HAL_FDCAN_AddMessageToTxFifoQ(&hfdcan2, &tx_header, tx_data) != HAL_OK) {
 		Error_Handler();
 	}
