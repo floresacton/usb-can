@@ -9,6 +9,9 @@ fp-info-cache
 ### Python ###
 __pycache__/
 
+### Rust ###
+target/
+
 ### STM32 ###
 .metadata/
 Debug/
