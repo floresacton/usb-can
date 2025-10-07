@@ -4,8 +4,8 @@
 #include "inttypes.h"
 
 void App_Init(void);
-void App_Loop(void);
+void App_Update(void);
 
-void App_Send(uint8_t* data);
+void App_Send(uint8_t* data, uint8_t len);
 
-#endifi
+#endif

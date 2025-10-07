@@ -20,6 +20,7 @@ class CAN_DLC(Enum):
     Size48 = 14
     Size64 = 15
 
+
 dlc_sizes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64]
 
 
@@ -33,34 +34,35 @@ class CAN_TYPE(Enum):
     INT32_T = 6
     Float = 7
 
+
 data_lengths = [0, 1, 1, 2, 2, 4, 4, 4]
 
 data_strings = ["", "B", "b", "H", "h", "I", "i", "f"]
 
-# TODO debug
+
 class CanManager:
-    def __init__(self, manager) -> None:
-        self.manager = manager
-    
-    def send_frame(self, id, data, length):
-        header = length.value << 11 | id
-        bytes = struct.pack("H", header)
-        bytes.extend(data)
-        self.manager.write_bytes(bytes)
+    def __init__(self, ser_manager) -> None:
+        self.manager = ser_manager
+
+    def send_frame(self, can_id, data, length):
+        header = length.value << 11 | can_id
+        byte_data = bytearray()
+        byte_data.extend(struct.pack("H", header))
+        byte_data.extend(data)
+        self.manager.write_bytes(byte_data)
 
     def receive_frame(self):
-        header = struct.unpack("H", self.manager.read_bytes(2))
-        id = header & 0x07FF
+        header = struct.unpack("H", self.manager.read_bytes(2))[0]
+        can_id = header & 0x07FF
         dlc_idx = header >> 11
         data = self.manager.read_bytes(dlc_sizes[dlc_idx])
-        return id, data, dlc_idx
+        return can_id, data, dlc_idx
 
-# TODO finish
-    def send_message(self, types, values):
+    # TODO finish
+    def send_message(self, can_id, types, values):
         parse_string = "".join(map(lambda type: data_strings(type.value), types))
         data = struct.pack(parse_string, values)
         self.manager.write_bytes(data)
-            
-# TODO finish
-    def parse_message(self, types, data):
-        ...
+
+    # TODO finish
+    def parse_message(self, types, data): ...
