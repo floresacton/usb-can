@@ -17,8 +17,6 @@ static uint8_t rx_data[66];
 static const uint8_t dlc_size[16] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64};
 
 void App_Init(void) {
-    memset(tx_data, 4, 64);
-    memset(rx_data, 3, 66);
 //  FDCAN_FilterTypeDef sFilterConfig;
 //
 //  sFilterConfig.IdType = FDCAN_STANDARD_ID;
