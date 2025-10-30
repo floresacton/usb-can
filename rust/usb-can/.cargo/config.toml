@@ -1,0 +1,16 @@
+[build]
+target = "thumbv7em-none-eabihf"
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+
+[profile.dev]
+opt-level = 1
+
+[target.thumbv7em-none-eabihf]
+runner = "probe-rs run --chip STM32G473CBTx"
+rustflags = [
+  "-C", "link-arg=-Tlink.x",
+]
